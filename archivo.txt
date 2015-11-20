@@ -1,0 +1,5 @@
+Create Table registro{
+Var nombre;
+Var apellido;
+Var telefono;
+}
