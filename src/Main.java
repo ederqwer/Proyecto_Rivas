@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
  * @author Toshiba
  */
 public class Main extends javax.swing.JFrame {
-
+error err;
     /**
      * Creates new form Main
      */
@@ -32,6 +32,7 @@ public class Main extends javax.swing.JFrame {
         initComponents();
         Image icon = new ImageIcon(getClass().getResource("icon30px.png")).getImage();
         setIconImage(icon);
+        err=new error();
     }
 
     /**
@@ -304,32 +305,32 @@ public class Main extends javax.swing.JFrame {
                              if(cad.charAt(j)=='}'){
                                  band =true;
                                   if(sc.hasNext()) {
-                                      System.out.println("texto demas despues de terminar ");
+                                      err.setmsg("Hay texto extra después de terminar.");
                                       band = false;
                                       return false;
                                       
                                   }
                                   else {
                                       for ( k = j+1; k < cad.length(); k++) {
-                                          if(cad.charAt(j)!=' ') System.out.println("texto de mas en linea");
+                                          if(cad.charAt(j)!=' ') err.setmsg("Hay texto extra en linea.");
                                           band = false;
                                           return false;
                                       }
                                   }
                                   if(band){
-                                      System.out.println("Se termino correctamente."+list.size());
+                                      err.setmsg("Se terminó correctamente.");
                                       genera(nombreTab,list); return true;
-                                  }else System.out.println("No se pudo finalizar.");
+                                  }else err.setmsg("No se pudo finalizar.");
                                  return false;
                              }
-                            System.out.println("error1 Fila "+fila+" Columna: "+j);
+                            err.setmsg("Error 1 Fila "+fila+" Columna: "+j);
                             return false;
                         }
                         palabra += cad.charAt(j);
                         j++;
                     }
                     if(j==cad.length() || cad.charAt(j)==' ');else {
-                        System.out.println("error3 ");return false;
+                        err.setmsg("Error 3 ");return false;
                     }
                     
                     System.out.print("si");System.out.println(palabra);
@@ -350,7 +351,7 @@ public class Main extends javax.swing.JFrame {
                             j--;
                             continue;
                         } else {
-                            System.out.println("error4 falta nombreTab [Fila:"+fila+"]");
+                            err.setmsg("Error 4 falta nombreTab [Fila:"+fila+"]");
                             return false;
                         }
                     }
@@ -364,31 +365,31 @@ public class Main extends javax.swing.JFrame {
                                 
                                 System.out.println(nombreVar);
                                 if(list.contains(nombreVar)){
-                                    System.out.println("error 9 variable repetida [fila: "+fila+"]");
+                                    err.setmsg("Error 9 variable repetida [fila: "+fila+"]");
                                     return false;
                                 }
                                 list.add(nombreVar); nombreVar="";
                                     aux--;
                                 continue;
                             }else{
-                                System.out.println("error 5"+"falta nombre de variable");
+                                err.setmsg("Error 5"+" falta nombre de variable.");
                                 return false;
                             }
                         }
                         nombreVar += cad.charAt(j);
                         if(j==cad.length()-1){
-                            System.out.println("error 6"); return false;
+                            err.setmsg("Error 6"); return false;
                         }
                 }
 
             }
         }
         if(band){
-            System.out.println("Finaizacion sin problemas.");
+            err.setmsg("Finaizacion sin problemas.");
             genera(nombreTab,list);
             return true;
         }else{
-            System.out.println("No se pudo finalizar");
+            err.setmsg("No se pudo finalizar");
             return false;
         }
      } 
