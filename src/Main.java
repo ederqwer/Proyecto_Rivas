@@ -329,9 +329,9 @@ error err;
                         palabra += cad.charAt(j);
                         j++;
                     }
-                    if(j==cad.length() || cad.charAt(j)==' ');else {
-                        err.setmsg("Error 3 ");return false;
-                    }
+//                    if(j==cad.length() || cad.charAt(j)==' ');else {
+//                        err.setmsg("Error 3 ");return false;
+//                    }
                     
                     System.out.print("si");System.out.println(palabra);
                     
@@ -378,7 +378,7 @@ error err;
                         }
                         nombreVar += cad.charAt(j);
                         if(j==cad.length()-1){
-                            err.setmsg("Error 6"); return false;
+                            err.setmsg("Error 6 Se esperaba cierre de variable"); return false;
                         }
                 }
 

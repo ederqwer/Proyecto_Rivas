@@ -1,1 +1,3 @@
-fdsgfdsg
+Create Table tab{
+Var s   ;
+}
