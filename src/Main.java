@@ -189,7 +189,7 @@ public class Main extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(216, 216, 216));
-        jLabel8.setText("Guardar");
+        jLabel8.setText("Guardar Informacion");
         jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel8MouseClicked(evt);
@@ -309,7 +309,7 @@ public class Main extends javax.swing.JFrame {
             try {
                 //guarda clase
                 PrintWriter pw = new PrintWriter("archivo.txt");
-                PrintWriter pw2 = new PrintWriter("archivo.txt");
+                PrintWriter pw2 = new PrintWriter("Proyectos\\"+nombre+"\\archivo.txt");
                 Scanner ss = new Scanner(area.getText());
                 while (ss.hasNext()) {
                     String line = ss.nextLine();
@@ -330,15 +330,20 @@ public class Main extends javax.swing.JFrame {
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
         // TODO add your handling code here:
-        area.setText(area.getText()+"--------------------------------CLUSTER("+a.raiz.keys[0].info.aux+")--------------------------\n");
+        if(insertar){
+            area.setText(area.getText()+"--------------------------------CLUSTER("+a.raiz.keys[0].info.aux+")--------------------------\n");
         a.inorden(a.raiz, area);
         area.setText(area.getText()+"\n\n-----------------------------INDICES--------------------------\n");
         for (int i = 0; i < indices.length; i++) {
             indices[i].inorden(indices[i].raiz,area);
             area.setText(area.getText()+"------------------\n");
         }
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Se necesita tener datos");
+        }
+        
     }//GEN-LAST:event_jLabel7MouseClicked
-ArbolB a = new ArbolB();   ArbolBindex []indices; 
+ArbolB a = new ArbolB();   ArbolBindex []indices; int cant = 0;
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
         // TODO add your handling code here:
         if(compilar){
@@ -356,7 +361,7 @@ ArbolB a = new ArbolB();   ArbolBindex []indices;
         for (int i = 0; i < indices.length; i++) {
             indices[i] = new ArbolBindex();
         }
-        for (int i = 0; i < 50; i++) {
+        for (int i = cant; i < cant+50; i++) {
             seed = (seed * 2) % mod;
                         aux = (double) seed / mod;
                         int x = (int) (aux * 15);
@@ -401,8 +406,8 @@ ArbolB a = new ArbolB();   ArbolBindex []indices;
                       }
                         p.insertar();
                         a.Insertar(i, p, a.raiz, null, 0);
-        }
-        
+        }cant+=50;
+        insertar=true;
         JOptionPane.showMessageDialog(rootPane, "Se ha insertado");
         }else{
             JOptionPane.showMessageDialog(rootPane, "Se necesita compilar primero");
@@ -411,14 +416,27 @@ ArbolB a = new ArbolB();   ArbolBindex []indices;
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         // TODO add your handling code here:
-        FileDialog fd = new FileDialog(this, "Abrir proyecto", FileDialog.LOAD);
-                fd.setVisible(true);
-                System.out.println(fd.getFile());
+        FileDialog fd = new FileDialog(this, "Abrir proyecto");
+                fd.setVisible(true); 
+                System.out.println(fd.getDirectory());
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
         // TODO add your handling code here:
-        
+        System.out.println(path);
+        if(insertar){
+            
+            try {
+                PrintWriter pw = new PrintWriter(path+"\\informacion.txt");
+                a.inorden(a.raiz, pw);
+                pw.close();
+                JOptionPane.showMessageDialog(rootPane, "Se inserto informacion");
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Se necesita tener informacion");
+        }
     }//GEN-LAST:event_jLabel8MouseClicked
     static void getdatos(LinkedList q1, LinkedList q2, LinkedList q3) throws FileNotFoundException {
         FileReader fr = new FileReader("nombre.txt");

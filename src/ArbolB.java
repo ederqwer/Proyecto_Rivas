@@ -1,4 +1,5 @@
 
+import java.io.PrintWriter;
 import javax.swing.JTextArea;
 
 
@@ -275,6 +276,23 @@ public class ArbolB {
                 inorden(Arbol.hijos[i],m);
                 nivel--;
                 m.setText(m.getText()+"Nivel-"+nivel + "-[" + Arbol.keys[i].key + "] - "+Arbol.keys[i].info.ver2()+"\n");
+//                System.out.print("Nivel-"+nivel + "-[" + Arbol.keys[i].key + "] - ");Arbol.keys[i].info.ver();
+                if (i == Arbol.cont) {
+                    nivel++;
+                    inorden(Arbol.hijos[i + 1],m);
+                    nivel--;
+                }
+            }
+        }
+    }
+    
+    public void inorden(Nodo Arbol, PrintWriter m) {
+        if (Arbol != null) {
+            for (int i = 0; i <= Arbol.cont; i++) {
+                nivel++;
+                inorden(Arbol.hijos[i],m);
+                nivel--;
+                m.println(Arbol.keys[i].key + " - "+Arbol.keys[i].info.ver2());
 //                System.out.print("Nivel-"+nivel + "-[" + Arbol.keys[i].key + "] - ");Arbol.keys[i].info.ver();
                 if (i == Arbol.cont) {
                     nivel++;
