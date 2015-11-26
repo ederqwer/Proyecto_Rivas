@@ -1,4 +1,5 @@
 
+import java.awt.FileDialog;
 import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Point;
@@ -18,21 +19,23 @@ import javax.swing.JOptionPane;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Toshiba
  */
 public class Main extends javax.swing.JFrame {
-error err;
+
+    error err;
+    boolean compilar = false;
+    boolean insertar = false;
     /**
      * Creates new form Main
      */
     public Main() {
         initComponents();
-        Image icon = new ImageIcon(getClass().getResource("icon30px.png")).getImage();
-        setIconImage(icon);
-        err=new error();
+//        Image icon = new ImageIcon(getClass().getResource("icon30px.png")).getImage();
+//        setIconImage(icon);
+        err = new error();
     }
 
     /**
@@ -56,7 +59,9 @@ error err;
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         area = new javax.swing.JTextArea();
-        link = new javax.swing.JLabel();
+        link = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -86,20 +91,20 @@ error err;
         jPanel1.setBackground(new java.awt.Color(253, 250, 250));
 
         jPanel2.setBackground(new java.awt.Color(164, 30, 30));
-        jPanel2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                jPanel2MouseDragged(evt);
-            }
-        });
         jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jPanel2MousePressed(evt);
             }
         });
+        jPanel2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel2MouseDragged(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(216, 216, 216));
-        jLabel1.setText("Guardar");
+        jLabel1.setText("Compilar");
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel1MouseClicked(evt);
@@ -132,11 +137,21 @@ error err;
 
         jLabel5.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(216, 216, 216));
-        jLabel5.setText("Insertar");
+        jLabel5.setText("Abrir");
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(216, 216, 216));
-        jLabel6.setText("Ver");
+        jLabel6.setText("Insertar");
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
 
         jPanel3.setBackground(new java.awt.Color(252, 250, 250));
 
@@ -150,7 +165,7 @@ error err;
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 904, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,7 +174,27 @@ error err;
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        link.setForeground(new java.awt.Color(239, 239, 239));
+        link.setBackground(new java.awt.Color(164, 30, 30));
+        link.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        link.setFocusable(false);
+
+        jLabel7.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(216, 216, 216));
+        jLabel7.setText("Ver");
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel7MouseClicked(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(216, 216, 216));
+        jLabel8.setText("Guardar");
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel8MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -169,11 +204,6 @@ error err;
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel3))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
@@ -181,8 +211,16 @@ error err;
                         .addGap(18, 18, 18)
                         .addComponent(jLabel6)
                         .addGap(18, 18, 18)
-                        .addComponent(link, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel8)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(link)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -190,13 +228,15 @@ error err;
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3)
+                    .addComponent(link, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6)
-                    .addComponent(link, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -255,163 +295,464 @@ error err;
     private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel3MousePressed
-    String path="";
+    String path = "";
+    
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         // TODO add your handling code here:
         String nombre = JOptionPane.showInputDialog("Nombre del proyecto");
-        path = "Proyectos//"+nombre;
+        path = "Proyectos\\" + nombre;
+        if(!nombre.equals("")){
         File archivo = new File(path);
-        
-        link.setText(path);
-        if( archivo.mkdirs() ){
+
+//        link.setText(path);
+        if (archivo.mkdirs()) {
             try {
                 //guarda clase
                 PrintWriter pw = new PrintWriter("archivo.txt");
+                PrintWriter pw2 = new PrintWriter("archivo.txt");
                 Scanner ss = new Scanner(area.getText());
-                while(ss.hasNext()){
-                    pw.println(ss.nextLine());
+                while (ss.hasNext()) {
+                    String line = ss.nextLine();
+                    pw.println(line);
+                    pw2.println(line);
                 }
-                pw.close();
+                pw.close(); pw2.close();
                 obten();
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "No se pudo crear directorio");
+        }}else{
+            JOptionPane.showMessageDialog(rootPane, "Ingrese un nombre ");
         }
     }//GEN-LAST:event_jLabel1MouseClicked
-    int x,y;
-    
-     boolean obten() throws FileNotFoundException{
-         FileReader fr = new FileReader("archivo.txt");
-        Scanner sc = new Scanner(fr);
-        String cad = "";
-        int fila  = 0;
-        String[] reservado = {"Create", "Table", "", "{", "Var", ";", "}"};
-        String nombreTab = "", nombreVar="";
-        LinkedList<Comparable> list = new LinkedList<Comparable>();
-        int aux = 0;
-        boolean band= false;
-        while (sc.hasNext()) {
-            cad = sc.nextLine();
-            fila++;
-            int j = 0;
-            for (; j < cad.length(); j++) {
-                String palabra = "";
-                if (aux != 2 && aux!=5) {
-                    if (cad.charAt(j) == ' ') continue;
-                    
-                    for (int k = 0; k < reservado[aux].length(); k++) {
-                        
-                         if (j==cad.length() || reservado[aux].charAt(k) != cad.charAt(j) ) {
-                             if(cad.charAt(j)=='}'){
-                                 band =true;
-                                  if(sc.hasNext()) {
-                                      err.setmsg("Hay texto extra después de terminar.");
-                                      band = false;
-                                      return false;
-                                      
-                                  }
-                                  else {
-                                      for ( k = j+1; k < cad.length(); k++) {
-                                          if(cad.charAt(j)!=' ') err.setmsg("Hay texto extra en linea.");
-                                          band = false;
-                                          return false;
-                                      }
-                                  }
-                                  if(band){
-                                      err.setmsg("Se terminó correctamente.");
-                                      genera(nombreTab,list); return true;
-                                  }else err.setmsg("No se pudo finalizar.");
-                                 return false;
-                             }
-                            err.setmsg("Error 1 Fila "+fila+" Columna: "+j);
-                            return false;
-                        }
-                        palabra += cad.charAt(j);
-                        j++;
-                    }
-//                    if(j==cad.length() || cad.charAt(j)==' ');else {
-//                        err.setmsg("Error 3 ");return false;
-//                    }
-                    
-                    System.out.print("si");System.out.println(palabra);
-                    
-                    aux++;
-                    
-                    
-                } else if (aux == 2) {
-                    //nombre de la tabla
-                    if (cad.charAt(j) == ' ' )  continue;
-                    
-                    
-                    if (!((int) cad.charAt(j) <= 122 && (int) cad.charAt(j) >= 65)) {
-                        if ((cad.charAt(j) == '{' || cad.charAt(j) == ' ')&& !nombreTab.equals("")) {
-                            System.out.println(">>"+nombreTab);
-                            aux++; 
-                            palabra = "";
-                            j--;
-                            continue;
-                        } else {
-                            err.setmsg("Error 4 falta nombreTab [Fila:"+fila+"]");
-                            return false;
-                        }
-                    }
 
-                    nombreTab += cad.charAt(j);
-                }else if(aux==5){
-                        if (cad.charAt(j) == ' ') continue;
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+        // TODO add your handling code here:
+        area.setText(area.getText()+"--------------------------------CLUSTER("+a.raiz.keys[0].info.aux+")--------------------------\n");
+        a.inorden(a.raiz, area);
+        area.setText(area.getText()+"\n\n-----------------------------INDICES--------------------------\n");
+        for (int i = 0; i < indices.length; i++) {
+            indices[i].inorden(indices[i].raiz,area);
+            area.setText(area.getText()+"------------------\n");
+        }
+    }//GEN-LAST:event_jLabel7MouseClicked
+ArbolB a = new ArbolB();   ArbolBindex []indices; 
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        // TODO add your handling code here:
+        if(compilar){
+        LinkedList q1 = new LinkedList();
+        LinkedList q2 = new LinkedList();
+        LinkedList q3 = new LinkedList();
+        try {
+            getdatos(q1, q2, q3);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        long seed = System.currentTimeMillis();
+        long mod = System.nanoTime();
+        double aux;persona p1 = new persona();indices =new ArbolBindex[p1.tipos.length];
+        for (int i = 0; i < indices.length; i++) {
+            indices[i] = new ArbolBindex();
+        }
+        for (int i = 0; i < 50; i++) {
+            seed = (seed * 2) % mod;
+                        aux = (double) seed / mod;
+                        int x = (int) (aux * 15);
+                        seed = (seed * 4) % (mod);
+                        aux = (double) seed / (mod);
+                        int y = (int) (aux * 90);
+                        seed = (seed * 6) % (mod);
+                        aux = (double) seed / (mod);
+                        int z = (int) (aux * 30);
+                        seed = (seed * 2) % (mod);
+                        aux = (double) seed / (mod);
+                        int aa = (int) (aux * y);
+                        persona p = new persona();
                         
-                        if(!((int) cad.charAt(j) <= 122 && (int) cad.charAt(j) >= 65 )){
-                            if((cad.charAt(j) == ';'|| cad.charAt(j)==' ' || j<cad.length())&&!nombreVar.equals("")){
+                        for (int j = 0; j < p.datos.length; j++) {
+                                    seed = (seed * 2) % mod;
+                                aux = (double) seed / mod;
+                                int x2 = (int) (aux * 15);
+                                seed = (seed * 4) % (mod);
+                                aux = (double) seed / (mod);
+                                int y2 = (int) (aux * 90);
+                                seed = (seed * 6) % (mod);
+                                aux = (double) seed / (mod);
+                                int z2 = (int) (aux * 30);
+                                seed = (seed * 2) % (mod);
+                                aux = (double) seed / (mod);
+                                int aa2 = (int) (aux * y2);
+                            if(p.tipos[j]=="Text"){
+                                p.datos[j] = new Object();
+                                p.datos[j] = q1.get(aa2 + x).toString();
+                                indices[j].Insertar(q1.get(aa2 + x).toString(), i, indices[j].raiz, null, 0);
                                 
-                                System.out.println(nombreVar);
-                                if(list.contains(nombreVar)){
-                                    err.setmsg("Error 9 variable repetida [fila: "+fila+"]");
-                                    return false;
-                                }
-                                list.add(nombreVar); nombreVar="";
-                                    aux--;
-                                continue;
-                            }else{
-                                err.setmsg("Error 5"+" falta nombre de variable.");
-                                return false;
+                            }else if(p.tipos[j]=="Number"){
+                                p.datos[j] = new Object();
+                                p.datos[j] = q2.get(aa2 + x).toString();
+                                indices[j].Insertar(q2.get(aa2 + x).toString(), i, indices[j].raiz, null, 0);
+                            }else if(p.tipos[j]=="Bool"){
+                                p.datos[j] = new Object();
+                                p.datos[j] = q3.get(aa2 + x).toString();
+                                indices[j].Insertar(q3.get(aa2 + x).toString(), i, indices[j].raiz, null, 0);
                             }
-                        }
-                        nombreVar += cad.charAt(j);
-                        if(j==cad.length()-1){
-                            err.setmsg("Error 6 Se esperaba cierre de variable"); return false;
-                        }
-                }
+                      }
+                        p.insertar();
+                        a.Insertar(i, p, a.raiz, null, 0);
+        }
+        
+        JOptionPane.showMessageDialog(rootPane, "Se ha insertado");
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Se necesita compilar primero");
+        }
+    }//GEN-LAST:event_jLabel6MouseClicked
 
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        // TODO add your handling code here:
+        FileDialog fd = new FileDialog(this, "Abrir proyecto", FileDialog.LOAD);
+                fd.setVisible(true);
+                System.out.println(fd.getFile());
+    }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jLabel8MouseClicked
+    static void getdatos(LinkedList q1, LinkedList q2, LinkedList q3) throws FileNotFoundException {
+        FileReader fr = new FileReader("nombre.txt");
+        Scanner sc = new Scanner(fr);
+        while (sc.hasNext()) {
+            String a = sc.next();
+            if (!a.contains("(3)") && !a.contains("�")) {
+                q1.add(a);
             }
         }
-        if(band){
-            err.setmsg("Finaizacion sin problemas.");
-            genera(nombreTab,list);
-            return true;
-        }else{
-            err.setmsg("No se pudo finalizar");
-            return false;
+        fr = new FileReader("matricula.txt");
+        sc = new Scanner(fr);
+        while (sc.hasNext()) {
+            String a = sc.next();
+            q2.add(a);
         }
-     } 
-     void genera(String nombre, LinkedList variables) throws FileNotFoundException{
-        PrintWriter pw = new PrintWriter(path+"\\"+nombre+".java");
+        fr = new FileReader("boolean.txt");
+        sc = new Scanner(fr);
+        while (sc.hasNext()) {
+            String a = sc.next();
+            q3.add(a);
+        }
+    }
+    
+    int x, y;
+    
+    
+    LinkedList<String> obten() throws FileNotFoundException {
+        FileReader fr = new FileReader("archivo.txt");
+        Scanner sc = new Scanner(fr);
+        LinkedList<tokens> list = new LinkedList<tokens>();
+        int fila = 0;
+
+        while (sc.hasNext()) {
+            fila++;
+            String cad = sc.nextLine();
+            tokens tok = new tokens();
+            for (int i = 0; i < cad.length(); i++) {
+                if (cad.charAt(i) == ' ') {
+                    if (tok.token.equals("")) {
+                        continue;
+                    } else {
+                        tok.fila = fila;
+                        tok.x = tok.y - tok.token.length() + 1;
+                        list.add(tok);
+                        tok = new tokens();
+                        continue;
+                    }
+                }
+                tok.y = i;
+                tok.token += cad.charAt(i);
+//                  System.out.println(">>"+tok.token);
+            }
+
+            if (!tok.token.equals("")) {
+                tok.fila = fila;
+                tok.x = tok.y - tok.token.length() + 1;
+                list.add(tok);
+            }
+        }
+
+        String arr[] = {"Create", "Table"};
+        String datos = "Text Numeric Bool";
+        int apunt = 0;
+        String nombretab = "";
+        String tabname = "";
+        boolean llavei = false;
+        boolean nomtab = false;
+        boolean var = false;
+        boolean nomvar = false;
+        boolean puntoycoma = false;
+        boolean llavefin = false;
+        boolean tipo = false;
+        LinkedList<String> variables = new LinkedList<String>();
+        LinkedList<String> tipos = new LinkedList<String>();
+        for (int i = 0; i < list.size(); i++) {
+            if (apunt < 2) {
+                if (arr[apunt] != null && list.get(i).token.equals(arr[apunt])) {
+//                        System.out.println("vammos bien");
+//                        System.out.println(arr[apunt]+" -- "+list.get(i).token);
+                    apunt++;
+                } else {
+                    err.setmsg("No se creo " + arr[apunt]);
+                    err.setVisible(true);
+                    compilar = false;
+                    return null;
+                }
+            } else {
+                   //nomretab {
+                //!((int) cad.charAt(j) <= 122 && (int) cad.charAt(j) >= 65)
+                for (int j = 0; j < list.get(i).token.length(); j++) {
+
+                    if (((int) list.get(i).token.charAt(j) <= 122 && (int) list.get(i).token.charAt(j) >= 65)) {
+                        nombretab += list.get(i).token.charAt(j);
+
+                    } else {
+//                                System.out.println(list.get(i).token.charAt(j)+"<<");
+                        //aqui salen las variables
+
+                        if (!nombretab.equals("")) {
+                            if (llavei == false) {
+                                System.out.println("terminooo > " + nombretab);
+                                tabname = nombretab;
+                                nombretab = "";
+                            } else {
+                                if (nombretab.equals("Text") || nombretab.equals("Number") || nombretab.equals("Bool")) {
+                                    System.out.println("tipo > " + nombretab);
+                                    tipos.add(nombretab);
+                                    nombretab = "";
+                                    tipo = true;
+                                    puntoycoma = false;
+                                } else {
+                                    if (tipo) {
+                                        if (nombretab.equals("")) {
+                                            err.setmsg("variable vacia");
+                                            err.setVisible(true);compilar = false;
+                                            return null;
+                                        } else {
+                                            if(variables.contains(nombretab)){
+                                                err.setmsg("Variable ya existe");
+                                                err.setVisible(true);compilar = false;
+                                                return null;
+                                            }else{
+                                                variables.add(nombretab);
+                                                nombretab = "";
+                                                puntoycoma = false;
+                                                tipo = false;
+                                            }
+                                            
+                                        }
+
+                                        nomvar = true;
+                                        nombretab = "";
+                                    } else {
+                                        err.setmsg("falto tipo de variable");
+                                        err.setVisible(true);compilar = false;
+                                        return null;
+
+                                    }
+                                }
+                            }
+
+                        } else {
+                            if (nomvar == false && puntoycoma == false) {
+                                err.setmsg("se esperaba nombre de variable");
+                                err.setVisible(true);compilar = false;
+                                return null;
+                            }
+                        }
+                        //^^^^^^^^^^
+                        if (llavei == false) {
+                            if (list.get(i).token.charAt(j) == '{') {
+//                                    System.out.println("vamoss bien");
+                                llavei = true;
+                            } else {
+                                err.setmsg("caracter invalido esperaba llave");
+                                err.setVisible(true);compilar = false;
+                                return null;
+
+                            }
+                        } else {
+                            if (list.get(i).token.charAt(j) == ';') {
+//                                            System.out.println("vamos bien");
+                                puntoycoma = true;
+                            } else {
+                                System.out.println("pas");
+                                if (list.get(i).token.charAt(j) == '}' && puntoycoma) {
+                                    System.out.println("ya acabo");
+                                    llavefin = true;
+
+                                } else {
+                                    if (llavei) {
+                                        err.setmsg("se esperaba variables con punto y coma");
+                                        err.setVisible(true);compilar = false;
+                                        return null;
+                                    }
+
+                                }
+
+                            }
+                        }
+                    }
+
+                }
+                if (!nombretab.equals("")) {
+                    //se ingreso variable
+                    if (llavei && (nombretab.equals("Text") || nombretab.equals("Number") || nombretab.equals("Bool"))) {
+                        System.out.println("segundo termino >" + nombretab);
+                        tipos.add(nombretab);
+                        nombretab = "";
+                        tipo = true;
+                        puntoycoma = false;
+                    } else {
+                        if (llavei == false) {
+                            System.out.println("nombretab " + nombretab);
+                        } else {
+                            if (tipo) {
+                                if (nombretab.equals("")) {
+                                    System.out.println("variable vacia");
+                                    err.setmsg("variable vacia");
+                                    err.setVisible(true);compilar = false;
+                                    return null;
+                                } else {
+                                    if(variables.contains(nombretab)){
+                                                err.setmsg("Variable ya existe");
+                                                err.setVisible(true);compilar = false;
+                                                return null;
+                                            }else{
+                                                variables.add(nombretab);
+                                                nombretab = "";
+                                                nomvar = true;
+                                                nombretab = "";
+                                                tipo = false;
+                                            }
+                                    
+                                }
+                            } else {
+                                err.setmsg("falto tipo de variable");
+                                err.setVisible(true);compilar = false;
+                                return null;
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+        if (variables.size() < 1) {
+            System.out.println("no variables");
+            err.setmsg("no variables");
+            err.setVisible(true);compilar = false;
+            return null;
+        }
+        for (int k = 0; k < variables.size(); k++) {
+            System.out.println("[" + variables.get(k) + "]");
+        }
+        if (llavefin == false) {
+            err.setmsg("no finalizo llave");err.setVisible(true);compilar = false; return null;
+        } else {
+            genera(tabname, tipos, variables);compilar=true;
+            return variables;
+        }
+//        return null;
+
+    }
+
+    void genera(String nombre, LinkedList tipos, LinkedList variables) throws FileNotFoundException {
+        PrintWriter pw = new PrintWriter(path + "\\" + "persona" + ".java");
+
         String dir = System.getProperty("user.dir");
-         System.out.println(dir);
-         link.setText(dir+path+"\\"+nombre+".java");
-        pw.println("public class "+nombre+" {");
-        pw.println("    String nombreTab=\""+nombre+"\";");
-        String cad="    String variables[]={";
+        System.out.println(dir);
+        link.setText(dir + "\\" + path + "\\" + "persona" + ".java");
+        pw.println("public class " + "persona" + " {");
+        pw.println("    String aux=\"" + nombre + "\";");
+        pw.println("    int apunt=0;");
+        String cad = "    String tipos[]={";
         for (int i = 0; i < variables.size(); i++) {
-            pw.println("    Object "+variables.get(i).toString()+";");
-            cad+="\""+variables.get(i).toString()+"\"";
-            if(i<variables.size()-1)
-               cad+=", ";
+            String tipo = "";
+            if (tipos.get(i).equals("Text")) {
+                tipo = "String";
+            } else if (tipos.get(i).equals("Number")) {
+                tipo = "int";
+            } else if (tipos.get(i).equals("Bool")) {
+                tipo = "boolean";
+            }
+            pw.println("    " + tipo + " " + variables.get(i).toString() + ";");
+            cad += "\"" + tipos.get(i).toString() + "\"";
+            if (i < variables.size() - 1) {
+                cad += ", ";
+            }
         }
-        cad+="};";
+        cad += "};";
         pw.println(cad);
+        pw.println("Object datos[] = new Object[tipos.length];");
+        pw.println("persona (){");
+        for (int i = 0; i < variables.size(); i++) {
+            pw.print(variables.get(i) + " = ");
+            if (tipos.get(i).equals("Text")) {
+                pw.print("\"\";");
+            } else if (tipos.get(i).equals("Number")) {
+                pw.print("0;");
+            } else if (tipos.get(i).equals("Bool")) {
+                pw.print("false;");
+            }
+        }
+//           pw.println("datos = new Object[tipos.length];");
+        pw.println("}");
+        pw.println("void insertar(){");
+        for (int i = 0; i < variables.size(); i++) {
+            if (tipos.get(i).equals("Text")) {
+                pw.println(variables.get(i) + " = " + "datos[" + i + "].toString();");
+            } else {
+                if (tipos.get(i).equals("Number")) {
+                    pw.println(variables.get(i) + " = " + "Integer.parseInt(datos[" + i + "].toString());");
+                } else {
+                    if (tipos.get(i).equals("Bool")) {
+                        pw.println(variables.get(i) + " = " + "Boolean.parseBoolean(datos[" + i + "].toString());");
+                    }
+                }
+            }
+        }
+        pw.println("}");
+        pw.println("void ver(){");
+        pw.print("System.out.println(");
+        for (int i = 0; i < variables.size() - 1; i++) {
+            pw.print(variables.get(i) + " + \" - \" + ");
+        }
+        pw.println(variables.get(variables.size() - 1) + ");");
+        pw.println("}");
+        pw.print("String ver2(){\n   return ");
+        for (int i = 0; i < variables.size()-1; i++) {
+            pw.print(variables.get(i)+ "+ \" - \" + ");
+        }
+        pw.print(variables.get(variables.size()-1)+";");
+        pw.print("}");
         pw.println("}");
         pw.close();
+
+        PrintWriter pw2 = new PrintWriter("src/persona.java");
+        FileReader fr = new FileReader(path + "\\" + "persona" + ".java");
+        Scanner sc = new Scanner(fr);
+        while (sc.hasNext()) {
+            pw2.println(sc.nextLine());
+        }
+        try {
+            pw2.close();
+            fr.close();
+            sc.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        //vamos a actualizar la clase persona
     }
+
     /**
      * @param args the command line arguments
      */
@@ -456,10 +797,12 @@ error err;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel link;
+    private javax.swing.JTextField link;
     // End of variables declaration//GEN-END:variables
 }

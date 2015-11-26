@@ -1,3 +1,7 @@
 Create Table tab{
-Var s   ;
+Text nombre;
+Text direccion;
+Number  telefono;
+Number edad;
+Bool status;
 }

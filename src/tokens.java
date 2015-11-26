@@ -4,17 +4,18 @@
  * and open the template in the editor.
  */
 
+
+
 /**
  *
  * @author PC
  */
-public class registro {
-    Comparable key;
-    persona info;
-    Object campo;
-    registro(){
-        info = new persona();
-        key=0;
-        campo = null;
+public class tokens {
+    String token;
+    int fila ;
+    int x,y;
+    tokens(){
+        token ="";
+        fila=x=y=0;
     }
 }

@@ -8,13 +8,11 @@
  *
  * @author PC
  */
-public class registro {
+public class campo {
     Comparable key;
-    persona info;
-    Object campo;
-    registro(){
-        info = new persona();
-        key=0;
-        campo = null;
+    Comparable info;
+    campo(){
+        key = 0;
+        info = 0;
     }
 }

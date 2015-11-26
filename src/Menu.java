@@ -69,12 +69,12 @@ public class Menu {
                         String matricula = q4.get(aa + x).toString();
 
                         persona p = new persona();
-                        p.nombre = nombre;
-                        p.nombre2 = nombre2;
-                        p.apellido = apellido;
-                        p.apellido2 = apellido2;
-                        p.telefono = telefono;
-                        p.matricula = matricula;
+//                        p.nombre = nombre;
+//                        p.nombre2 = nombre2;
+//                        p.apellido = apellido;
+//                        p.apellido2 = apellido2;
+//                        p.telefono = telefono;
+//                        p.matricula = matricula;
                         a.Insertar(i, p, a.raiz, null, 0);
                         
                         
@@ -87,7 +87,7 @@ public class Menu {
                     System.out.println(" 100%");
                     break;
                 case 2:
-                    a.inorden(a.raiz);
+//                    a.inorden(a.raiz);
                     System.out.println("");
                     break;
                 case 3:
@@ -132,22 +132,22 @@ public class Menu {
                             System.out.print("Ingresar: ");
                             switch (opcion) {
                                 case 1:
-                                    p.nombre = l.next();
+//                                    p.nombre = l.next();
                                     break;
                                 case 2:
-                                    p.nombre2 = l.next();
+//                                    p.nombre2 = l.next();
                                     break;
                                 case 3:
-                                    p.apellido = l.next();
+//                                    p.apellido = l.next();
                                     break;
                                 case 4:
-                                    p.apellido2 = l.next();
+//                                    p.apellido2 = l.next();
                                     break;
                                 case 5:
-                                    p.matricula = l.next();
+//                                    p.matricula = l.next();
                                     break;
                                 case 6:
-                                    p.telefono = l.next();
+//                                    p.telefono = l.next();
                                     break;
                                 case 7:
                                     System.out.println("Saliendo...");
@@ -178,7 +178,7 @@ public class Menu {
     }
 
     static void getdatos(LinkedList q1, LinkedList q2, LinkedList q3, LinkedList q4) throws FileNotFoundException {
-        FileReader fr = new FileReader("nombres.txt");
+        FileReader fr = new FileReader("nombre.txt");
         Scanner sc = new Scanner(fr);
         while (sc.hasNext()) {
             String a = sc.next();
@@ -186,25 +186,17 @@ public class Menu {
                 q1.add(a);
             }
         }
-        fr = new FileReader("apellidos.txt");
-        sc = new Scanner(fr);
-        while (sc.hasNext()) {
-            String a = sc.next();
-            if (!a.contains("(3)") && !a.contains("�")) {
-                q2.add(a);
-            }
-        }
         fr = new FileReader("telefono.txt");
         sc = new Scanner(fr);
         while (sc.hasNext()) {
             String a = sc.next();
-            q3.add("(833) " + a);
+            q2.add( a);
         }
-        fr = new FileReader("matricula.txt");
+        fr = new FileReader("boolean.txt");
         sc = new Scanner(fr);
         while (sc.hasNext()) {
             String a = sc.next();
-            q4.add("a" + a);
+            q3.add( a);
         }
     }
 }

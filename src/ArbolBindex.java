@@ -1,26 +1,34 @@
 
 import javax.swing.JTextArea;
 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
-public class ArbolB {
-
-    Nodo raiz;
+/**
+ *
+ * @author PC
+ */
+public class ArbolBindex {
+     Nodocampo raiz;
     int gm;
     int nivel = 0;
 
-    ArbolB() {
+    ArbolBindex() {
         raiz = null;
         gm = 3;
     }
 
-    ArbolB(int gm) {
+    ArbolBindex(int gm) {
         raiz = null;
         this.gm = gm;
     }
 
-    public void Insertar(Comparable key, persona reg, Nodo Arbol, Nodo padre, int index) {
+    public void Insertar(Comparable key, Comparable reg, Nodocampo Arbol, Nodocampo padre, int index) {
         if (raiz == null) {
-            raiz = new Nodo(gm);
+            raiz = new Nodocampo(gm);
             raiz.Agregar(key, reg);
         } else if (Arbol.hoja) {
 
@@ -53,13 +61,13 @@ public class ArbolB {
 
     }
 
-    public void Partir(Nodo Arbol, Nodo padre, int index) {
+    public void Partir(Nodocampo Arbol, Nodocampo padre, int index) {
         if (padre == null) {
-            Nodo aux = new Nodo(gm);
+            Nodocampo aux = new Nodocampo(gm);
             aux.Agregar(Arbol.keys[(Arbol.cont) / 2].key,Arbol.keys[(Arbol.cont) / 2].info);
             aux.hoja = false;
-            aux.hijos[0] = new Nodo(gm);
-            aux.hijos[1] = new Nodo(gm);
+            aux.hijos[0] = new Nodocampo(gm);
+            aux.hijos[1] = new Nodocampo(gm);
             for (int i = 0; i < Arbol.cont / 2; i++) {
                 aux.hijos[0].Agregar(Arbol.keys[i].key,Arbol.keys[i].info);
                 aux.hijos[0].hijos[i] = Arbol.hijos[i];
@@ -84,14 +92,14 @@ public class ArbolB {
                 padre.keys[i + 1] = padre.keys[i];
                 padre.hijos[i + 2] = padre.hijos[i + 1];
             }
-            Nodo aux = Arbol;
+            Nodocampo aux = Arbol;
             padre.keys[index] = aux.keys[(aux.cont) / 2];
             padre.cont++;
             if (padre.cont == padre.gm - 1) {
                 padre.lleno = true;
             }
-            padre.hijos[index] = new Nodo(gm);
-            padre.hijos[index + 1] = new Nodo(gm);
+            padre.hijos[index] = new Nodocampo(gm);
+            padre.hijos[index + 1] = new Nodocampo(gm);
             for (int i = 0; i < aux.cont / 2; i++) {
                 padre.hijos[index].Agregar(aux.keys[i].key,aux.keys[i].info);
                 padre.hijos[index].hijos[i] = aux.hijos[i];
@@ -113,7 +121,7 @@ public class ArbolB {
         }
     }
 
-    public void Eliminar(Comparable key, Nodo Arbol, Nodo padre, int index) {
+    public void Eliminar(Comparable key, Nodocampo Arbol, Nodocampo padre, int index) {
         boolean ban = true;
         int i = 0;
         while (ban && i <= Arbol.cont) {
@@ -149,7 +157,7 @@ public class ArbolB {
         }
     }
 
-    public void reacomodo(Nodo incompleto, Nodo padre, int index) {
+    public void reacomodo(Nodocampo incompleto, Nodocampo padre, int index) {
         if (incompleto.cont == -1 && padre == null) {
             raiz = incompleto.hijos[0];
 
@@ -161,24 +169,24 @@ public class ArbolB {
             } else {
                 if (index > 0 && padre != null) {
                     Comparable mm = padre.keys[index - 1].key;
-                    persona nn = padre.keys[index - 1].info;
+                    Comparable nn = padre.keys[index - 1].info;
                     padre.hijos[index - 1].Agregar(mm,nn, incompleto.hijos[0]);
                     int i = 0;
                     while (i <= incompleto.cont) {
                         Comparable ss = incompleto.keys[i].key;
-                        persona zz = incompleto.keys[i].info;
+                        Comparable zz = incompleto.keys[i].info;
                         padre.hijos[index - 1].Agregar(ss,zz, incompleto.hijos[i + 1]);
                         i++;
                     }
                     padre.Recorrer2(padre.keys[index - 1].key);
                 } else if (padre != null) {
                     Comparable algo = padre.keys[index].key;
-                    persona s = padre.keys[index].info;
+                    Comparable s = padre.keys[index].info;
                     padre.hijos[index + 1].Agregar(algo,s, incompleto.hijos[incompleto.cont+1]);
                     int i = incompleto.cont;
                     while (i >= 0) {
                         Comparable su = incompleto.keys[i].key;
-                        persona ta = incompleto.keys[i].info;
+                        Comparable ta = incompleto.keys[i].info;
                         padre.hijos[index + 1].Agregar(su,ta, incompleto.hijos[i]);
                         i--;
                     }
@@ -188,7 +196,7 @@ public class ArbolB {
         }
     }
 
-    public boolean prestamoizq(Nodo padre, int index) {
+    public boolean prestamoizq(Nodocampo padre, int index) {
         boolean ban = false;
         if (padre == null) {
             return ban;
@@ -201,7 +209,7 @@ public class ArbolB {
         return ban;
     }
 
-    public boolean prestamoder(Nodo padre, int index) {
+    public boolean prestamoder(Nodocampo padre, int index) {
         boolean ban = false;
         if (padre == null) {
             return ban;
@@ -214,23 +222,23 @@ public class ArbolB {
         return ban;
     }
 
-    public void Rotacionder(Nodo padre, int index) {
-        registro aux = padre.hijos[index - 1].keys[padre.hijos[index - 1].cont];
-        Nodo naux = padre.hijos[index - 1].hijos[padre.hijos[index - 1].cont + 1];
+    public void Rotacionder(Nodocampo padre, int index) {
+        campo aux = padre.hijos[index - 1].keys[padre.hijos[index - 1].cont];
+        Nodocampo naux = padre.hijos[index - 1].hijos[padre.hijos[index - 1].cont + 1];
         padre.hijos[index - 1].cont--;
         padre.hijos[index].empujar(padre.keys[index - 1].key,padre.keys[index - 1].info, naux);
         padre.keys[index - 1] = aux;
     }
 
-    public void Rotacionizq(Nodo padre, int index) {
-        registro aux = padre.hijos[index + 1].keys[0];
-        Nodo naux = padre.hijos[index + 1].hijos[0];
+    public void Rotacionizq(Nodocampo padre, int index) {
+        campo aux = padre.hijos[index + 1].keys[0];
+        Nodocampo naux = padre.hijos[index + 1].hijos[0];
         padre.hijos[index + 1].Recorrer(aux.key);
         padre.hijos[index].Agregar(padre.keys[index].key,padre.keys[index].info, naux);
         padre.keys[index] = aux;
     }
 
-    public void Subir(Nodo Arbol, Nodo padre, int index, Nodo naux, int aux) {
+    public void Subir(Nodocampo Arbol, Nodocampo padre, int index, Nodocampo naux, int aux) {
         if (Arbol.hijos[Arbol.cont + 1] != null) {
             Subir(Arbol.hijos[Arbol.cont + 1], Arbol, Arbol.cont + 1, naux, aux);
 
@@ -245,8 +253,8 @@ public class ArbolB {
         }
     }
 
-    public persona Buscar(Nodo Arbol, Comparable key) {
-        persona encontrado = null;
+    public Comparable Buscar(Nodocampo Arbol, Comparable key) {
+        Comparable encontrado = null;
         if (Arbol != null) {
             int i = 0;
             while (encontrado == null && i <= Arbol.cont) {
@@ -262,23 +270,17 @@ public class ArbolB {
         }
         return encontrado;
     }
-    void modificar(Comparable key, persona p){
-        persona aux=Buscar(raiz, key);   
-        if(aux!=null){
-            aux=p;
-        }
-    }
-    public void inorden(Nodo Arbol, JTextArea m) {
+    public void inorden(Nodocampo Arbol, JTextArea area) {
         if (Arbol != null) {
             for (int i = 0; i <= Arbol.cont; i++) {
                 nivel++;
-                inorden(Arbol.hijos[i],m);
+                inorden(Arbol.hijos[i],area);
                 nivel--;
-                m.setText(m.getText()+"Nivel-"+nivel + "-[" + Arbol.keys[i].key + "] - "+Arbol.keys[i].info.ver2()+"\n");
-//                System.out.print("Nivel-"+nivel + "-[" + Arbol.keys[i].key + "] - ");Arbol.keys[i].info.ver();
+                area.setText(area.getText()+"Nivel-"+nivel + "-[" + Arbol.keys[i].key + "] - "+Arbol.keys[i].info+"\n");
+//                System.out.println("Nivel-"+nivel + "-[" + Arbol.keys[i].key + "] - "+Arbol.keys[i].info);
                 if (i == Arbol.cont) {
                     nivel++;
-                    inorden(Arbol.hijos[i + 1],m);
+                    inorden(Arbol.hijos[i + 1],area);
                     nivel--;
                 }
             }
