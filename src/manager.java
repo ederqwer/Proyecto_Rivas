@@ -100,7 +100,7 @@ public class manager extends javax.swing.JFrame {
         });
 
         comp.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        comp.setForeground(new java.awt.Color(216, 216, 216));
+        comp.setForeground(new java.awt.Color(239, 239, 239));
         comp.setText("Compilar");
         comp.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -154,11 +154,12 @@ public class manager extends javax.swing.JFrame {
         );
 
         link.setBackground(new java.awt.Color(164, 30, 30));
+        link.setForeground(new java.awt.Color(255, 255, 255));
         link.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         link.setFocusable(false);
 
         jLabel1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(216, 216, 216));
+        jLabel1.setForeground(new java.awt.Color(239, 239, 239));
         jLabel1.setText("Abrir");
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

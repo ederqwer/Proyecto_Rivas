@@ -35,7 +35,16 @@ public class Main extends javax.swing.JFrame {
         initComponents();
 //        Image icon = new ImageIcon(getClass().getResource("icon30px.png")).getImage();
 //        setIconImage(icon);
+        persona s = new persona();
+        String a = s.path;
+        for (int i = 1; i < a.split(" ").length-1; i++) {
+            link.setText(link.getText()+a.split(" ")[i]+"/");
+        }link.setText(link.getText()+a.split(" ")[a.split(" ").length-1]);
         err = new error();
+         persona p1 = new persona();indices =new ArbolBindex[p1.tipos.length];
+        for (int i = 0; i < indices.length; i++) {
+            indices[i] = new ArbolBindex();
+        }
     }
 
     /**
@@ -104,7 +113,7 @@ public class Main extends javax.swing.JFrame {
         });
 
         comp.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        comp.setForeground(new java.awt.Color(216, 216, 216));
+        comp.setForeground(new java.awt.Color(244, 244, 244));
         comp.setText("Compilar");
         comp.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -137,14 +146,22 @@ public class Main extends javax.swing.JFrame {
         });
 
         jLabel6.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(216, 216, 216));
+        jLabel6.setForeground(new java.awt.Color(241, 241, 241));
         jLabel6.setText("Insertar");
+        jLabel6.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jLabel6MouseDragged(evt);
+            }
+        });
         jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel6MouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabel6MouseEntered(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLabel6MouseReleased(evt);
             }
         });
 
@@ -170,11 +187,12 @@ public class Main extends javax.swing.JFrame {
         );
 
         link.setBackground(new java.awt.Color(164, 30, 30));
+        link.setForeground(new java.awt.Color(255, 255, 255));
         link.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         link.setFocusable(false);
 
         jLabel7.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(216, 216, 216));
+        jLabel7.setForeground(new java.awt.Color(244, 244, 244));
         jLabel7.setText("Ver");
         jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -183,7 +201,7 @@ public class Main extends javax.swing.JFrame {
         });
 
         jLabel8.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(216, 216, 216));
+        jLabel8.setForeground(new java.awt.Color(242, 242, 242));
         jLabel8.setText("Guardar Informacion");
         jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -192,7 +210,7 @@ public class Main extends javax.swing.JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(216, 216, 216));
+        jLabel4.setForeground(new java.awt.Color(244, 244, 244));
         jLabel4.setText("Eliminar");
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -201,7 +219,7 @@ public class Main extends javax.swing.JFrame {
         });
 
         jLabel5.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(216, 216, 216));
+        jLabel5.setForeground(new java.awt.Color(246, 246, 246));
         jLabel5.setText("Modificar");
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -365,31 +383,47 @@ public class Main extends javax.swing.JFrame {
 ArbolB a = new ArbolB();   ArbolBindex []indices; int cant = 0; boolean bandera = true;
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
         // TODO add your handling code here:
-        
+       
         System.out.println(path);
         String aux2 = path;
         String folder="";
         String m[] = aux2.split(" ");
         for (int i = 0; i < m.length; i++) {
+            folder+=m[i]+"\\";
             if(m[i].equals("Proyectos")){
-                folder = m[i+1]; break;
+                folder += m[i+1]; break;
             }
         }
         if(bandera){
+            System.out.println(">>>>>>>>>>>>>>"+folder);
+            FileReader fr = null;
         try{
-        FileReader fr = new FileReader ("Proyectos\\"+folder+"\\informacion.txt");
-            Scanner sc = new Scanner(fr);
+         fr = new FileReader (folder+"\\informacion.txt");
+            
+        }catch(Exception e){
+            System.out.println(">>"+e);
+        }Scanner sc = new Scanner(fr);
             int num  =0;
             while(sc.hasNext()){
                 String []cad = sc.nextLine().split(" - ");
                 num = Integer.parseInt(cad[0]);
+                persona l = new persona();
+                for (int i = 1; i < cad.length; i++) {
+                    System.out.println("pase"+cad[i]+" - "+cad[0]);
+                    l.datos[i-1] = new Object();System.out.println("por aki");
+                    l.datos[i-1] = cad[i];System.out.println("por aca");
+//                    indices[i-1].Insertar(cad[i], Integer.parseInt(cad[0]), indices[i-1].raiz, null, 0);System.out.println("jeje");
+                    
+                    indices[i-1].Insertar(cad[i], num, indices[i-1].raiz, null, 0);
+                }
+                
+                l.insertar();
+                a.Insertar(Integer.parseInt(cad[0]), l, a.raiz, null, 0);
             }
             
             cant = num+1;
             bandera = false;
-        }catch(Exception e){
-            
-        }}
+        }
         
         LinkedList q1 = new LinkedList();
         LinkedList q2 = new LinkedList();
@@ -402,10 +436,8 @@ ArbolB a = new ArbolB();   ArbolBindex []indices; int cant = 0; boolean bandera 
         }
         long seed = System.currentTimeMillis();
         long mod = System.nanoTime();
-        double aux;persona p1 = new persona();indices =new ArbolBindex[p1.tipos.length];
-        for (int i = 0; i < indices.length; i++) {
-            indices[i] = new ArbolBindex();
-        }
+        double aux;
+        
         
             
             System.out.println(cant);
@@ -547,6 +579,14 @@ ArbolB a = new ArbolB();   ArbolBindex []indices; int cant = 0; boolean bandera 
         }
         }
     }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void jLabel6MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel6MouseReleased
+
+    private void jLabel6MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseDragged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel6MouseDragged
     static void getdatos(LinkedList q1, LinkedList q2, LinkedList q3) throws FileNotFoundException {
         FileReader fr = new FileReader("nombre.txt");
         Scanner sc = new Scanner(fr);
