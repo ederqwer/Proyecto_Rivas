@@ -31,10 +31,9 @@ public class Nodo {
             min = gm / 2;
         }
     }
-
-    public void Agregar(Comparable x, persona reg) {
+    public void Agregar(int x, persona reg) {
         int i = cont;
-        while (i >= 0 && keys[i].key.toString().compareTo(x.toString()) >0 ) {
+        while (i >= 0 && keys[i].key > x ) {
             keys[i + 1].key = keys[i].key;
             keys[i + 1].info = keys[i].info;
             i--;
@@ -47,9 +46,9 @@ public class Nodo {
         }
     }
 
-    public void Agregar(Comparable x,persona reg, Nodo aux) {
+    public void Agregar(int x,persona reg, Nodo aux) {
         int i = cont;
-        while (i >= 0 && keys[i].key.toString().compareTo(x.toString()) >0) {
+        while (i >= 0 && keys[i].key > x) {
             keys[i + 1].key = keys[i].key;
             keys[i + 1].info = keys[i].info;
             hijos[i + 2] = hijos[i + 1];
@@ -71,7 +70,7 @@ public class Nodo {
         }
     }
 
-    public void empujar(Comparable x,persona reg, Nodo aux) {
+    public void empujar(registro x, Nodo aux) {
         int i = gm - 2;
         while (i >= 0) {
             keys[i + 1].key = keys[i].key;
@@ -82,18 +81,17 @@ public class Nodo {
             }
             i--;
         }
-        keys[i + 1].key = x;
-        keys[i + 1].info = reg;
+        keys[i + 1] = x;
         cont++;
         hijos[i + 1] = aux;
 
     }
 
-    public void Quitar(Comparable x) {
+    public void Quitar(int x) {
         int i = 0;
         boolean ban = false;
         while (i <= cont && ban == false) {
-            if ( x.toString().compareTo(keys[i].key.toString()) ==0) {
+            if ( keys[i].key == x) {
                 ban = true;
                 cont--;
             } else {
@@ -101,26 +99,23 @@ public class Nodo {
             }
         }
         while (i <= cont) {
-            keys[i].key = keys[i+1].key;
-            keys[i].info = keys[i+1].info;
+            keys[i]= keys[i+1];
             i++;
         }
     }
 
-    public void Recorrer(Comparable x) {
+   public void Recorrer(int x) {
         int i = 0;
         boolean ban = false;
         while (i <= cont && ban == false) {
-            System.out.println(keys[i].key+" - "+x);
-            if (keys[i].key.toString() .compareTo(x.toString()) ==0) {
+            if (keys[i].key == x) {
                 ban = true;
             } else {
                 i++;
             }
         }
         while (i <= cont) {
-            keys[i + 1].key = keys[i].key;
-            keys[i + 1].info = keys[i].info;
+            keys[i] = keys[i + 1];
             hijos[i] = hijos[i + 1];
             if (i == cont) {
                 hijos[i + 1] = hijos[i + 2];
@@ -130,31 +125,29 @@ public class Nodo {
         cont--;
     }
 
-    public void Recorrer2(Comparable x) {
+   public void Recorrer2(int x) {
         int i = 0;
         boolean ban = false;
         while (i <= cont && ban == false) {
-            System.out.println(keys[i].key+" - "+x);
-            if (keys[i].key.toString().compareTo(x.toString()) ==0) {
+            if (keys[i].key == x) {
                 ban = true;
             } else {
                 i++;
             }
         }
         while (i <= cont) {
-            keys[i + 1].key = keys[i].key;
-            keys[i + 1].info = keys[i].info;
+            keys[i] = keys[i + 1];
             hijos[i + 1] = hijos[i + 2];
             i++;
         }
         cont--;
     }
 
-    public boolean Buscar(Comparable x) {
+    public boolean Buscar(int x) {
         boolean ban = false;
         int i = 0;
         while (ban == false && i <= cont) {
-            if (x.compareTo(keys[i].key) == 0) {
+            if (x == keys[i].key) {
                 ban = true;
             } else {
                 i++;

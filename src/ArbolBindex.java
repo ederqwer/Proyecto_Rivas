@@ -121,11 +121,11 @@ public class ArbolBindex {
         }
     }
 
-    public void Eliminar(Comparable key, Nodocampo Arbol, Nodocampo padre, int index) {
+    public void Eliminar(Comparable key,Comparable id, Nodocampo Arbol, Nodocampo padre, int index) {
         boolean ban = true;
         int i = 0;
         while (ban && i <= Arbol.cont) {
-            if (Arbol.keys[i].key.compareTo(key)==0) {
+            if (Arbol.keys[i].key.compareTo(key)==0 && Arbol.keys[i].info.compareTo(id) == 0) {
                 if (Arbol.hoja) {
                     Arbol.Quitar(key);
                     if (padre != null && Arbol.min > Arbol.cont + 1) {
@@ -140,13 +140,13 @@ public class ArbolBindex {
 
                 ban = false;
             } else if (Arbol.keys[i].key.compareTo(key) >0) {
-                Eliminar(key, Arbol.hijos[i], Arbol, i);
+                Eliminar(key,id, Arbol.hijos[i], Arbol, i);
                 if (Arbol.min > Arbol.cont + 1) {
                     reacomodo(Arbol, padre, index);
                 }
                 ban = false;
             } else if (i == Arbol.cont) {
-                Eliminar(key, Arbol.hijos[i + 1], Arbol, i + 1);
+                Eliminar(key,id, Arbol.hijos[i + 1], Arbol, i + 1);
                 if (Arbol.min > Arbol.cont + 1) {
                     reacomodo(Arbol, padre, index);
                 }
@@ -226,9 +226,11 @@ public class ArbolBindex {
         campo aux = padre.hijos[index - 1].keys[padre.hijos[index - 1].cont];
         Nodocampo naux = padre.hijos[index - 1].hijos[padre.hijos[index - 1].cont + 1];
         padre.hijos[index - 1].cont--;
-        padre.hijos[index].empujar(padre.keys[index - 1].key,padre.keys[index - 1].info, naux);
+        padre.hijos[index].empujar(padre.keys[index - 1],padre.keys[index - 1].info, naux);
         padre.keys[index - 1] = aux;
     }
+    
+    
 
     public void Rotacionizq(Nodocampo padre, int index) {
         campo aux = padre.hijos[index + 1].keys[0];
@@ -237,6 +239,8 @@ public class ArbolBindex {
         padre.hijos[index].Agregar(padre.keys[index].key,padre.keys[index].info, naux);
         padre.keys[index] = aux;
     }
+    
+    
 
     public void Subir(Nodocampo Arbol, Nodocampo padre, int index, Nodocampo naux, int aux) {
         if (Arbol.hijos[Arbol.cont + 1] != null) {
@@ -252,18 +256,20 @@ public class ArbolBindex {
             reacomodo(Arbol, padre, index);
         }
     }
+    
+    
 
-    public Comparable Buscar(Nodocampo Arbol, Comparable key) {
-        Comparable encontrado = null;
+    public campo Buscar(Nodocampo Arbol, Comparable key, Comparable id) {
+        campo encontrado = null;
         if (Arbol != null) {
             int i = 0;
             while (encontrado == null && i <= Arbol.cont) {
-                if (Arbol.keys[i].key.compareTo(key)==0) {
-                    encontrado = Arbol.keys[i].info;
+                if (Arbol.keys[i].key.compareTo(key)==0 && Arbol.keys[i].info.compareTo(id) == 0) {
+                    encontrado = Arbol.keys[i];
                 } else if (Arbol.keys[i].key.compareTo(key)>0) {
-                    encontrado = Buscar(Arbol.hijos[i], key);
+                    encontrado = Buscar(Arbol.hijos[i], key, id);
                 } else if (i == Arbol.cont) {
-                    encontrado = Buscar(Arbol.hijos[i + 1], key);
+                    encontrado = Buscar(Arbol.hijos[i + 1], key, id);
                 }
                 i++;
             }

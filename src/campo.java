@@ -12,7 +12,7 @@ public class campo {
     Comparable key;
     Comparable info;
     campo(){
-        key = 0;
+        key = "";
         info = 0;
     }
 }

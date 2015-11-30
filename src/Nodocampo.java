@@ -54,6 +54,7 @@ public class Nodocampo {
             lleno = true;
         }
     }
+    
 
     public void Agregar(Comparable x,Comparable reg, Nodocampo aux) {
         int i = cont;
@@ -78,8 +79,10 @@ public class Nodocampo {
             lleno = true;
         }
     }
+    
+   
 
-    public void empujar(Comparable x,Comparable reg, Nodocampo aux) {
+    public void empujar(campo x,Comparable reg, Nodocampo aux) {
         int i = gm - 2;
         while (i >= 0) {
             keys[i + 1].key = keys[i].key;
@@ -90,12 +93,12 @@ public class Nodocampo {
             }
             i--;
         }
-        keys[i + 1].key = x;
-        keys[i + 1].info = reg;
+        keys[i + 1] = x;
         cont++;
         hijos[i + 1] = aux;
 
     }
+    
 
     public void Quitar(Comparable x) {
         int i = 0;
@@ -109,11 +112,11 @@ public class Nodocampo {
             }
         }
         while (i <= cont) {
-            keys[i].key = keys[i+1].key;
-            keys[i].info = keys[i+1].info;
+            keys[i] = keys[i+1];
             i++;
         }
     }
+    
 
     public void Recorrer(Comparable x) {
         int i = 0;
@@ -136,6 +139,8 @@ public class Nodocampo {
         }
         cont--;
     }
+    
+    
 
     public void Recorrer2(Comparable x) {
         int i = 0;
@@ -148,13 +153,13 @@ public class Nodocampo {
             }
         }
         while (i <= cont) {
-            keys[i + 1].key = keys[i].key;
-            keys[i + 1].info = keys[i].info;
+            keys[i] = keys[i+1];
             hijos[i + 1] = hijos[i + 2];
             i++;
         }
         cont--;
     }
+    
 
     public boolean Buscar(Comparable x) {
         boolean ban = false;

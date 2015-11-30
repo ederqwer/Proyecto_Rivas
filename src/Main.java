@@ -203,6 +203,11 @@ public class Main extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(216, 216, 216));
         jLabel5.setText("Modificar");
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -405,7 +410,7 @@ ArbolB a = new ArbolB();   ArbolBindex []indices; int cant = 0; boolean bandera 
             
             System.out.println(cant);
            
-        for (int i = cant; i < cant+5; i++) {
+        for (int i = cant; i < cant+50; i++) {
             seed = (seed * 2) % mod;
                         aux = (double) seed / mod;
                         int x = (int) (aux * 15);
@@ -491,17 +496,57 @@ ArbolB a = new ArbolB();   ArbolBindex []indices; int cant = 0; boolean bandera 
         // TODO add your handling code here:
         //eliminar
         if(insertar){
-            Comparable algo = JOptionPane.showInputDialog("Ingrese dato");
-//            persona aux = a.Buscar(a.raiz, algo);
+            int algo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese dato"));
+            persona aux = a.Buscar(a.raiz, algo);
             
             a.Eliminar(algo, a.raiz, null, 0);
            
-//            for (int i = 0; i < indices.length; i++) {
-//                indices[i].Eliminar(aux.datos[i].toString(), indices[i].raiz, null, 0);
-//            }
-//            area.setText("");
+            for (int i = 0; i < indices.length; i++) {
+                indices[i].Eliminar(aux.datos[i].toString(),algo, indices[i].raiz, null, 0);
+            }
         }
     }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        // TODO add your handling code here:
+        persona j = new persona();
+        int x = j.datos.length;
+        
+        String id = JOptionPane.showInputDialog("Ingresa id");
+        if(id!=null && !id.equals("")){
+            persona aux = a.Buscar(a.raiz, Integer.parseInt(id));
+                if(aux!=null){
+                    persona fin = new persona();
+                for (int i = 0; i < x; i++) {
+                    String o=  JOptionPane.showInputDialog(rootPane, "Dato a cambiar" + aux.datos[i]);
+//                    Comparable m=null;Comparable mm = null;
+//                    if(aux.tipos[i].equals("Text")){
+//                        m = aux.datos[i].toString();
+//                        mm  = o;
+//                    }else if(aux.tipos[i].equals("Number")){
+//                        System.out.println("akiiiii");
+//                        mm= Integer.parseInt(o);
+//                     m = Integer.parseInt(aux.datos[i].toString());
+//                }else if(aux.tipos[i].equals("Bool")){
+//                    mm = Boolean.parseBoolean(o);
+//                    m = Boolean.parseBoolean(aux.datos[i].toString());
+//                }
+//                    System.out.println(">>>> "+m);
+                    campo c = indices[i].Buscar(indices[i].raiz,  aux.datos[i].toString(), Integer.parseInt(id));
+                    indices[i].Eliminar(c.key,Integer.parseInt(id), indices[i].raiz, null, 0);
+                    indices[i].Insertar(o, Integer.parseInt(id), indices[i].raiz, null, 0);
+                    fin.datos[i] = new Object();
+                    fin.datos[i] = o;
+                }
+                fin.insertar();
+                    System.out.println(fin.ver2());
+                if(a.modificar(Integer.parseInt(id), fin)){
+                    System.out.println("ajja");
+                }
+            
+        }
+        }
+    }//GEN-LAST:event_jLabel5MouseClicked
     static void getdatos(LinkedList q1, LinkedList q2, LinkedList q3) throws FileNotFoundException {
         FileReader fr = new FileReader("nombre.txt");
         Scanner sc = new Scanner(fr);

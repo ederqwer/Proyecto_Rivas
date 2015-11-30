@@ -19,7 +19,7 @@ public class ArbolB {
         this.gm = gm;
     }
 
-    public void Insertar(Comparable key, persona reg, Nodo Arbol, Nodo padre, int index) {
+    public void Insertar(int key, persona reg, Nodo Arbol, Nodo padre, int index) {
         if (raiz == null) {
             raiz = new Nodo(gm);
             raiz.Agregar(key, reg);
@@ -34,7 +34,7 @@ public class ArbolB {
             boolean ban = true;
             int i = 0;
             while (ban && i <= Arbol.cont) {
-                if (Arbol.keys[i].key.compareTo(key) >=0) {
+                if (key <= Arbol.keys[i].key) {
                     Insertar(key,reg, Arbol.hijos[i], Arbol, i);
                     if (Arbol.lleno) {
                         Partir(Arbol, padre, index);
@@ -114,11 +114,11 @@ public class ArbolB {
         }
     }
 
-    public void Eliminar(Comparable key, Nodo Arbol, Nodo padre, int index) {
+    public void Eliminar(int key, Nodo Arbol, Nodo padre, int index) {
         boolean ban = true;
         int i = 0;
         while (ban && i <= Arbol.cont) {
-            if (Arbol.keys[i].key.toString().compareTo(key.toString())==0) {
+            if (key == Arbol.keys[i].key) {
                 if (Arbol.hoja) {
                     Arbol.Quitar(key);
                     if (padre != null && Arbol.min > Arbol.cont + 1) {
@@ -132,7 +132,7 @@ public class ArbolB {
                 }
 
                 ban = false;
-            } else if (Arbol.keys[i].key.toString().compareTo(key.toString()) >0) {
+            } else if (key < Arbol.keys[i].key) {
                 Eliminar(key, Arbol.hijos[i], Arbol, i);
                 if (Arbol.min > Arbol.cont + 1) {
                     reacomodo(Arbol, padre, index);
@@ -150,7 +150,7 @@ public class ArbolB {
         }
     }
 
-    public void reacomodo(Nodo incompleto, Nodo padre, int index) {
+   public void reacomodo(Nodo incompleto, Nodo padre, int index) {
         if (incompleto.cont == -1 && padre == null) {
             raiz = incompleto.hijos[0];
 
@@ -161,24 +161,24 @@ public class ArbolB {
                 Rotacionizq(padre, index);
             } else {
                 if (index > 0 && padre != null) {
-                    Comparable mm = padre.keys[index - 1].key;
+                    int mm = padre.keys[index - 1].key;
                     persona nn = padre.keys[index - 1].info;
                     padre.hijos[index - 1].Agregar(mm,nn, incompleto.hijos[0]);
                     int i = 0;
                     while (i <= incompleto.cont) {
-                        Comparable ss = incompleto.keys[i].key;
+                        int ss = incompleto.keys[i].key;
                         persona zz = incompleto.keys[i].info;
                         padre.hijos[index - 1].Agregar(ss,zz, incompleto.hijos[i + 1]);
                         i++;
                     }
                     padre.Recorrer2(padre.keys[index - 1].key);
                 } else if (padre != null) {
-                    Comparable algo = padre.keys[index].key;
+                    int algo = padre.keys[index].key;
                     persona s = padre.keys[index].info;
                     padre.hijos[index + 1].Agregar(algo,s, incompleto.hijos[incompleto.cont+1]);
                     int i = incompleto.cont;
                     while (i >= 0) {
-                        Comparable su = incompleto.keys[i].key;
+                        int su = incompleto.keys[i].key;
                         persona ta = incompleto.keys[i].info;
                         padre.hijos[index + 1].Agregar(su,ta, incompleto.hijos[i]);
                         i--;
@@ -219,7 +219,7 @@ public class ArbolB {
         registro aux = padre.hijos[index - 1].keys[padre.hijos[index - 1].cont];
         Nodo naux = padre.hijos[index - 1].hijos[padre.hijos[index - 1].cont + 1];
         padre.hijos[index - 1].cont--;
-        padre.hijos[index].empujar(padre.keys[index - 1].key,padre.keys[index - 1].info, naux);
+        padre.hijos[index].empujar(padre.keys[index - 1], naux);
         padre.keys[index - 1] = aux;
     }
 
@@ -236,8 +236,8 @@ public class ArbolB {
             Subir(Arbol.hijos[Arbol.cont + 1], Arbol, Arbol.cont + 1, naux, aux);
 
         } else {
-            naux.keys[aux].key = Arbol.keys[Arbol.cont].key;
-            naux.keys[aux].info = Arbol.keys[Arbol.cont].info;
+            naux.keys[aux].key= Arbol.keys[Arbol.cont].key;
+            naux.keys[aux].info= Arbol.keys[Arbol.cont].info;
             Arbol.cont--;
 
         }
@@ -246,14 +246,14 @@ public class ArbolB {
         }
     }
 
-    public persona Buscar(Nodo Arbol, Comparable key) {
+    public persona Buscar(Nodo Arbol, int key) {
         persona encontrado = null;
         if (Arbol != null) {
             int i = 0;
             while (encontrado == null && i <= Arbol.cont) {
-                if (Arbol.keys[i].key.compareTo(key)==0) {
+                if (key == Arbol.keys[i].key) {
                     encontrado = Arbol.keys[i].info;
-                } else if (Arbol.keys[i].key.compareTo(key)>0) {
+                } else if (key < Arbol.keys[i].key) {
                     encontrado = Buscar(Arbol.hijos[i], key);
                 } else if (i == Arbol.cont) {
                     encontrado = Buscar(Arbol.hijos[i + 1], key);
@@ -263,11 +263,18 @@ public class ArbolB {
         }
         return encontrado;
     }
-    void modificar(Comparable key, persona p){
+    
+    
+    boolean modificar(int key, persona p){
         persona aux=Buscar(raiz, key);   
         if(aux!=null){
-            aux=p;
-        }
+            for (int i = 0; i < aux.datos.length; i++) {
+                aux.datos[i] = p.datos[i];
+            }
+            aux.insertar();
+            
+            return true;
+        }return false;
     }
     public void inorden(Nodo Arbol, JTextArea m) {
         if (Arbol != null) {

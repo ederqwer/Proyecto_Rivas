@@ -9,10 +9,10 @@
  * @author PC
  */
 public class registro {
-    Comparable key;
+    int key;
     persona info;
     registro(){
         info = new persona();
-        key="";
+        key=0;
     }
 }
