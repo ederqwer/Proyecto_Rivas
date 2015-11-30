@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
  *
  * @author Toshiba
  */
-public class Main extends javax.swing.JFrame {
+public class manager extends javax.swing.JFrame {
 
     error err;
     boolean compilar = false;
@@ -31,7 +31,7 @@ public class Main extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
-    public Main() {
+    public manager() {
         initComponents();
 //        Image icon = new ImageIcon(getClass().getResource("icon30px.png")).getImage();
 //        setIconImage(icon);
@@ -54,15 +54,11 @@ public class Main extends javax.swing.JFrame {
         comp = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         area = new javax.swing.JTextArea();
         link = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -136,18 +132,6 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(216, 216, 216));
-        jLabel6.setText("Insertar");
-        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel6MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel6MouseEntered(evt);
-            }
-        });
-
         jPanel3.setBackground(new java.awt.Color(252, 250, 250));
 
         area.setBackground(new java.awt.Color(248, 248, 248));
@@ -173,36 +157,14 @@ public class Main extends javax.swing.JFrame {
         link.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         link.setFocusable(false);
 
-        jLabel7.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(216, 216, 216));
-        jLabel7.setText("Ver");
-        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(216, 216, 216));
+        jLabel1.setText("Abrir");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel7MouseClicked(evt);
+                jLabel1MouseClicked(evt);
             }
         });
-
-        jLabel8.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(216, 216, 216));
-        jLabel8.setText("Guardar Informacion");
-        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel8MouseClicked(evt);
-            }
-        });
-
-        jLabel4.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(216, 216, 216));
-        jLabel4.setText("Eliminar");
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel4MouseClicked(evt);
-            }
-        });
-
-        jLabel5.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(216, 216, 216));
-        jLabel5.setText("Modificar");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -215,15 +177,7 @@ public class Main extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(comp)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel7)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel8)
+                        .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(link)
@@ -243,11 +197,7 @@ public class Main extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comp)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8))
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -310,7 +260,7 @@ public class Main extends javax.swing.JFrame {
     
     private void compMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_compMouseClicked
         // TODO add your handling code here:
-        
+        if(link.getText().equals("")){
        String nombre = JOptionPane.showInputDialog("Nombre del proyecto");
         path = "Proyectos\\" + nombre;
         if(nombre!=null && !nombre.equals("")){
@@ -338,130 +288,51 @@ public class Main extends javax.swing.JFrame {
         }}else{
             JOptionPane.showMessageDialog(rootPane, "Ingrese un nombre ");
         }
-        
-    }//GEN-LAST:event_compMouseClicked
-
-    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
-        // TODO add your handling code here:
-        if(insertar){
-            area.setText(area.getText()+"--------------------------------CLUSTER("+a.raiz.keys[0].info.aux+")--------------------------\n");
-        a.inorden(a.raiz, area);
-        area.setText(area.getText()+"\n\n-----------------------------INDICES--------------------------\n");
-        for (int i = 0; i < indices.length; i++) {
-            indices[i].inorden(indices[i].raiz,area);
-            area.setText(area.getText()+"------------------\n");
-        }
         }else{
-            JOptionPane.showMessageDialog(rootPane, "Se necesita tener datos");
-        }
-        
-    }//GEN-LAST:event_jLabel7MouseClicked
-ArbolB a = new ArbolB();   ArbolBindex []indices; int cant = 0;
-    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
-        // TODO add your handling code here:
-        if(compilar){
-        LinkedList q1 = new LinkedList();
-        LinkedList q2 = new LinkedList();
-        LinkedList q3 = new LinkedList();
-        
-        try {
-            getdatos(q1, q2, q3);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        long seed = System.currentTimeMillis();
-        long mod = System.nanoTime();
-        double aux;persona p1 = new persona();indices =new ArbolBindex[p1.tipos.length];
-        for (int i = 0; i < indices.length; i++) {
-            indices[i] = new ArbolBindex();
-        }
-        
-            
-            System.out.println(cant);
-           
-        for (int i = cant; i < cant+50; i++) {
-            seed = (seed * 2) % mod;
-                        aux = (double) seed / mod;
-                        int x = (int) (aux * 15);
-                        seed = (seed * 4) % (mod);
-                        aux = (double) seed / (mod);
-                        int y = (int) (aux * 90);
-                        seed = (seed * 6) % (mod);
-                        aux = (double) seed / (mod);
-                        int z = (int) (aux * 30);
-                        seed = (seed * 2) % (mod);
-                        aux = (double) seed / (mod);
-                        int aa = (int) (aux * y);
-                        persona p = new persona();
-                        
-                        for (int j = 0; j < p.datos.length; j++) {
-                                    seed = (seed * 2) % mod;
-                                aux = (double) seed / mod;
-                                int x2 = (int) (aux * 15);
-                                seed = (seed * 4) % (mod);
-                                aux = (double) seed / (mod);
-                                int y2 = (int) (aux * 90);
-                                seed = (seed * 6) % (mod);
-                                aux = (double) seed / (mod);
-                                int z2 = (int) (aux * 30);
-                                seed = (seed * 2) % (mod);
-                                aux = (double) seed / (mod);
-                                int aa2 = (int) (aux * y2);
-                            if(p.tipos[j]=="Text"){
-                                p.datos[j] = new Object();
-                                p.datos[j] = q1.get(aa2 + x).toString();
-                                indices[j].Insertar(q1.get(aa2 + x).toString(), i, indices[j].raiz, null, 0);
-                                
-                            }else if(p.tipos[j]=="Number"){
-                                p.datos[j] = new Object();
-                                p.datos[j] = q2.get(aa2 + x).toString();
-                                indices[j].Insertar(q2.get(aa2 + x).toString(), i, indices[j].raiz, null, 0);
-                            }else if(p.tipos[j]=="Bool"){
-                                p.datos[j] = new Object();
-                                p.datos[j] = q3.get(aa2 + x).toString();
-                                indices[j].Insertar(q3.get(aa2 + x).toString(), i, indices[j].raiz, null, 0);
-                            }
-                      }
-                        p.insertar();
-                        a.Insertar(i, p, a.raiz, null, 0);
-        }cant+=50;
-        insertar=true;
-        JOptionPane.showMessageDialog(rootPane, "Se ha insertado");
-        }
-    }//GEN-LAST:event_jLabel6MouseClicked
-
-    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
-        // TODO add your handling code here:
-        System.out.println(path);
-        if(insertar){
-            
             try {
-                PrintWriter pw = new PrintWriter(path+"\\informacion.txt");
-                a.inorden(a.raiz, pw);
-                pw.close();
-                JOptionPane.showMessageDialog(rootPane, "Se inserto informacion");
+                //guarda clase
+                PrintWriter pw = new PrintWriter("archivo.txt");
+                PrintWriter pw2 = new PrintWriter(path+"\\archivo.txt");
+                Scanner ss = new Scanner(area.getText());
+                while (ss.hasNext()) {
+                    String line = ss.nextLine();
+                    pw.println(line);
+                    pw2.println(line);
+                }
+                pw.close(); pw2.close();
+                obten();
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else{
-            JOptionPane.showMessageDialog(rootPane, "Se necesita tener informacion");
         }
-    }//GEN-LAST:event_jLabel8MouseClicked
-
-    private void jLabel6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseEntered
+    }//GEN-LAST:event_compMouseClicked
+ArbolB a = new ArbolB();   ArbolBindex []indices; int cant = 0;
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel6MouseEntered
-
-    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-        // TODO add your handling code here:
-        //eliminar
-        if(insertar){
-            Comparable algo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese dato"));
-           
-            a.Eliminar(algo, a.raiz, null, 0);
-            area.setText("");
-        }
-    }//GEN-LAST:event_jLabel4MouseClicked
+        FileDialog fd = new FileDialog(this, "Abrir proyecto");
+                fd.setVisible(true); 
+                String aux = fd.getFile();
+                if(aux.equals("archivo.txt")){
+                    link.setText(fd.getDirectory()+aux);
+                    path = fd.getDirectory();
+                    try {
+                        FileReader fr = new FileReader(fd.getDirectory()+aux);
+                        Scanner sc = new Scanner(fr);
+                        area.setText("");
+                        while(sc.hasNext()){
+                            area.setText(area.getText()+sc.nextLine()+"\n");
+                        }
+                        
+                    } catch (FileNotFoundException ex) {
+                        System.out.println(ex);
+                    }
+                }else{
+                    err.setmsg("Se esperaba [archivo.txt]");
+                    err.setVisible(true);
+                }
+//                System.out.println(fd.getDirectory());
+                
+    }//GEN-LAST:event_jLabel1MouseClicked
     static void getdatos(LinkedList q1, LinkedList q2, LinkedList q3) throws FileNotFoundException {
         FileReader fr = new FileReader("nombre.txt");
         Scanner sc = new Scanner(fr);
@@ -832,7 +703,7 @@ ArbolB a = new ArbolB();   ArbolBindex []indices; int cant = 0;
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main().setVisible(true);
+                new manager().setVisible(true);
             }
         });
     }
@@ -842,13 +713,9 @@ ArbolB a = new ArbolB();   ArbolBindex []indices; int cant = 0;
     private javax.swing.JLabel comp;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JFrame jFrame2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

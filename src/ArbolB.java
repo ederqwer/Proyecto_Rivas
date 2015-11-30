@@ -118,6 +118,8 @@ public class ArbolB {
         boolean ban = true;
         int i = 0;
         while (ban && i <= Arbol.cont) {
+            System.out.println(Arbol.keys[i].key);
+            System.out.println(key);
             if (Arbol.keys[i].key.compareTo(key)==0) {
                 if (Arbol.hoja) {
                     Arbol.Quitar(key);

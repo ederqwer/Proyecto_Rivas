@@ -1,7 +1,6 @@
 Create Table tab{
 Text nombre;
-Text direccion;
-Number  telefono;
+Text dir;
 Number edad;
-Bool status;
+Number tel;
 }

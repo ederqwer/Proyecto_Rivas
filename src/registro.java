@@ -14,7 +14,7 @@ public class registro {
     Object campo;
     registro(){
         info = new persona();
-        key=0;
+        key="";
         campo = null;
     }
 }
