@@ -306,7 +306,7 @@ public class Main extends javax.swing.JFrame {
     private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel3MousePressed
-    String path = "";
+    String path = new persona().path;
     
     private void compMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_compMouseClicked
         // TODO add your handling code here:
@@ -344,6 +344,7 @@ public class Main extends javax.swing.JFrame {
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
         // TODO add your handling code here:
         if(insertar){
+            area.setText("");
             area.setText(area.getText()+"--------------------------------CLUSTER("+a.raiz.keys[0].info.aux+")--------------------------\n");
         a.inorden(a.raiz, area);
         area.setText(area.getText()+"\n\n-----------------------------INDICES--------------------------\n");
@@ -356,10 +357,35 @@ public class Main extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jLabel7MouseClicked
-ArbolB a = new ArbolB();   ArbolBindex []indices; int cant = 0;
+ArbolB a = new ArbolB();   ArbolBindex []indices; int cant = 0; boolean bandera = true;
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
         // TODO add your handling code here:
-        if(compilar){
+        
+        System.out.println(path);
+        String aux2 = path;
+        String folder="";
+        String m[] = aux2.split(" ");
+        for (int i = 0; i < m.length; i++) {
+            if(m[i].equals("Proyectos")){
+                folder = m[i+1]; break;
+            }
+        }
+        if(bandera){
+        try{
+        FileReader fr = new FileReader ("Proyectos\\"+folder+"\\informacion.txt");
+            Scanner sc = new Scanner(fr);
+            int num  =0;
+            while(sc.hasNext()){
+                String []cad = sc.nextLine().split(" - ");
+                num = Integer.parseInt(cad[0]);
+            }
+            
+            cant = num+1;
+            bandera = false;
+        }catch(Exception e){
+            
+        }}
+        
         LinkedList q1 = new LinkedList();
         LinkedList q2 = new LinkedList();
         LinkedList q3 = new LinkedList();
@@ -379,7 +405,7 @@ ArbolB a = new ArbolB();   ArbolBindex []indices; int cant = 0;
             
             System.out.println(cant);
            
-        for (int i = cant; i < cant+50; i++) {
+        for (int i = cant; i < cant+5; i++) {
             seed = (seed * 2) % mod;
                         aux = (double) seed / mod;
                         int x = (int) (aux * 15);
@@ -407,39 +433,48 @@ ArbolB a = new ArbolB();   ArbolBindex []indices; int cant = 0;
                                 seed = (seed * 2) % (mod);
                                 aux = (double) seed / (mod);
                                 int aa2 = (int) (aux * y2);
-                            if(p.tipos[j]=="Text"){
+                            if(p.tipos[j].equals("Text")){
                                 p.datos[j] = new Object();
                                 p.datos[j] = q1.get(aa2 + x).toString();
                                 indices[j].Insertar(q1.get(aa2 + x).toString(), i, indices[j].raiz, null, 0);
                                 
-                            }else if(p.tipos[j]=="Number"){
+                            }else if(p.tipos[j].equals("Number")){
                                 p.datos[j] = new Object();
                                 p.datos[j] = q2.get(aa2 + x).toString();
                                 indices[j].Insertar(q2.get(aa2 + x).toString(), i, indices[j].raiz, null, 0);
-                            }else if(p.tipos[j]=="Bool"){
+                            }else if(p.tipos[j].equals("Bool")){
                                 p.datos[j] = new Object();
                                 p.datos[j] = q3.get(aa2 + x).toString();
                                 indices[j].Insertar(q3.get(aa2 + x).toString(), i, indices[j].raiz, null, 0);
                             }
                       }
                         p.insertar();
+                        System.out.println(i+p.ver2());p.ver2();
                         a.Insertar(i, p, a.raiz, null, 0);
         }cant+=50;
         insertar=true;
-        JOptionPane.showMessageDialog(rootPane, "Se ha insertado");
-        }
+        JOptionPane.showMessageDialog(rootPane, "Se ha insertado aleatoriamente 50 datos");
+        
     }//GEN-LAST:event_jLabel6MouseClicked
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
         // TODO add your handling code here:
         System.out.println(path);
+        String aux = path;
+        String folder="";
+        String m[] = aux.split(" ");
+        for (int i = 0; i < m.length; i++) {
+            if(m[i].equals("Proyectos")){
+                folder = m[i+1]; break;
+            }
+        }
         if(insertar){
             
             try {
-                PrintWriter pw = new PrintWriter(path+"\\informacion.txt");
+                PrintWriter pw = new PrintWriter("Proyectos\\"+folder+"\\informacion.txt");
                 a.inorden(a.raiz, pw);
                 pw.close();
-                JOptionPane.showMessageDialog(rootPane, "Se inserto informacion");
+                JOptionPane.showMessageDialog(rootPane, "Se inserto en informacion");
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -456,10 +491,15 @@ ArbolB a = new ArbolB();   ArbolBindex []indices; int cant = 0;
         // TODO add your handling code here:
         //eliminar
         if(insertar){
-            Comparable algo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese dato"));
-           
+            Comparable algo = JOptionPane.showInputDialog("Ingrese dato");
+//            persona aux = a.Buscar(a.raiz, algo);
+            
             a.Eliminar(algo, a.raiz, null, 0);
-            area.setText("");
+           
+//            for (int i = 0; i < indices.length; i++) {
+//                indices[i].Eliminar(aux.datos[i].toString(), indices[i].raiz, null, 0);
+//            }
+//            area.setText("");
         }
     }//GEN-LAST:event_jLabel4MouseClicked
     static void getdatos(LinkedList q1, LinkedList q2, LinkedList q3) throws FileNotFoundException {

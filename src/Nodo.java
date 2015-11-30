@@ -34,7 +34,7 @@ public class Nodo {
 
     public void Agregar(Comparable x, persona reg) {
         int i = cont;
-        while (i >= 0 && keys[i].key.compareTo(x) >0 ) {
+        while (i >= 0 && keys[i].key.toString().compareTo(x.toString()) >0 ) {
             keys[i + 1].key = keys[i].key;
             keys[i + 1].info = keys[i].info;
             i--;
@@ -49,7 +49,7 @@ public class Nodo {
 
     public void Agregar(Comparable x,persona reg, Nodo aux) {
         int i = cont;
-        while (i >= 0 && keys[i].key.compareTo(x) >0) {
+        while (i >= 0 && keys[i].key.toString().compareTo(x.toString()) >0) {
             keys[i + 1].key = keys[i].key;
             keys[i + 1].info = keys[i].info;
             hijos[i + 2] = hijos[i + 1];
@@ -93,7 +93,7 @@ public class Nodo {
         int i = 0;
         boolean ban = false;
         while (i <= cont && ban == false) {
-            if ( x.compareTo(keys[i].key) ==0) {
+            if ( x.toString().compareTo(keys[i].key.toString()) ==0) {
                 ban = true;
                 cont--;
             } else {
@@ -111,7 +111,8 @@ public class Nodo {
         int i = 0;
         boolean ban = false;
         while (i <= cont && ban == false) {
-            if (keys[i].key .compareTo(x) ==0) {
+            System.out.println(keys[i].key+" - "+x);
+            if (keys[i].key.toString() .compareTo(x.toString()) ==0) {
                 ban = true;
             } else {
                 i++;
@@ -133,7 +134,8 @@ public class Nodo {
         int i = 0;
         boolean ban = false;
         while (i <= cont && ban == false) {
-            if (keys[i].key.compareTo(x) ==0) {
+            System.out.println(keys[i].key+" - "+x);
+            if (keys[i].key.toString().compareTo(x.toString()) ==0) {
                 ban = true;
             } else {
                 i++;

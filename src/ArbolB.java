@@ -118,9 +118,7 @@ public class ArbolB {
         boolean ban = true;
         int i = 0;
         while (ban && i <= Arbol.cont) {
-            System.out.println(Arbol.keys[i].key);
-            System.out.println(key);
-            if (Arbol.keys[i].key.compareTo(key)==0) {
+            if (Arbol.keys[i].key.toString().compareTo(key.toString())==0) {
                 if (Arbol.hoja) {
                     Arbol.Quitar(key);
                     if (padre != null && Arbol.min > Arbol.cont + 1) {
@@ -134,7 +132,7 @@ public class ArbolB {
                 }
 
                 ban = false;
-            } else if (Arbol.keys[i].key.compareTo(key) >0) {
+            } else if (Arbol.keys[i].key.toString().compareTo(key.toString()) >0) {
                 Eliminar(key, Arbol.hijos[i], Arbol, i);
                 if (Arbol.min > Arbol.cont + 1) {
                     reacomodo(Arbol, padre, index);
@@ -278,7 +276,7 @@ public class ArbolB {
                 inorden(Arbol.hijos[i],m);
                 nivel--;
                 m.setText(m.getText()+"Nivel-"+nivel + "-[" + Arbol.keys[i].key + "] - "+Arbol.keys[i].info.ver2()+"\n");
-//                System.out.print("Nivel-"+nivel + "-[" + Arbol.keys[i].key + "] - ");Arbol.keys[i].info.ver();
+                System.out.print("Nivel-"+nivel + "-[" + Arbol.keys[i].key + "] - ");Arbol.keys[i].info.ver();
                 if (i == Arbol.cont) {
                     nivel++;
                     inorden(Arbol.hijos[i + 1],m);

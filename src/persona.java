@@ -1,5 +1,6 @@
 public class persona {
     String aux="tab";
+    String path =" C: Users PC Documents NetBeansProjects Proyecto_Rivas Proyectos p1 ";
     int apunt=0;
     String apellido;
     String dir;

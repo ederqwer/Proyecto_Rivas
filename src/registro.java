@@ -11,10 +11,8 @@
 public class registro {
     Comparable key;
     persona info;
-    Object campo;
     registro(){
         info = new persona();
         key="";
-        campo = null;
     }
 }

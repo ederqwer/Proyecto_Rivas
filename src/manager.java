@@ -298,6 +298,7 @@ public class manager extends javax.swing.JFrame {
                     String line = ss.nextLine();
                     pw.println(line);
                     pw2.println(line);
+                   
                 }
                 pw.close(); pw2.close();
                 obten();
@@ -307,6 +308,7 @@ public class manager extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_compMouseClicked
 ArbolB a = new ArbolB();   ArbolBindex []indices; int cant = 0;
+String folder = "";
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         // TODO add your handling code here:
         FileDialog fd = new FileDialog(this, "Abrir proyecto");
@@ -315,6 +317,7 @@ ArbolB a = new ArbolB();   ArbolBindex []indices; int cant = 0;
                 if(aux.equals("archivo.txt")){
                     link.setText(fd.getDirectory()+aux);
                     path = fd.getDirectory();
+                    
                     try {
                         FileReader fr = new FileReader(fd.getDirectory()+aux);
                         Scanner sc = new Scanner(fr);
@@ -586,14 +589,24 @@ ArbolB a = new ArbolB();   ArbolBindex []indices; int cant = 0;
     void genera(String nombre, LinkedList tipos, LinkedList variables) throws FileNotFoundException {
         PrintWriter pw = new PrintWriter(path + "\\" + "persona" + ".java");
         compilar = true;
-        comp.setEnabled(false);
+        err.setmsg( "Compilado correctamente, ejecute manager para trabajar sobre el arbol");
+        err.setVisible(true);
         String dir = System.getProperty("user.dir");
         System.out.println(dir);
-        if(link.getText().equals("")){System.out.println("pase");
+        if(link.getText().equals("")){
             link.setText(dir + "\\" + path + "\\" + "persona" + ".java");
         }
         pw.println("public class " + "persona" + " {");
         pw.println("    String aux=\"" + nombre + "\";");
+        String n ="";
+        for (int i = 0; i < path.length(); i++) {
+            if(path.charAt(i)=='\\'){
+                n+=" ";
+            }else{
+                n+=path.charAt(i);
+            }
+        }System.out.println(">>"+n);
+        pw.println("    String path =\" "+n+"\";");
         pw.println("    int apunt=0;");
         String cad = "    String tipos[]={";
         for (int i = 0; i < variables.size(); i++) {
